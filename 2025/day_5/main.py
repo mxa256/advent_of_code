@@ -40,4 +40,3 @@ ing_list = [int(x) for x in ing]
 count = sum(in_any_range(n, fresh_ing_range) for n in ing_list)
 
 print(f"The number of fresh ingredients is {count}")
-
