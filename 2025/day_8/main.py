@@ -9,7 +9,7 @@
 
 import math
 
-with open('test', 'r') as f:
+with open('input', 'r') as f:
     input = f.readlines()
 
 
@@ -33,32 +33,29 @@ for i in range(len(input)):
 
 #Sort the distances
 distances_sorted = sorted(distances, key=lambda x: x[0])
-print(distances_sorted)
 
 #Create the boxes, we'll use a dictionary
 #We only need the first 1000 smallest distances
 box = {i: i for i in range(len(input))}
 
-#Dict that counts how many boxes belong in each group
-counts = {}
-
-for k in range(1000):
-    dist, i, j = distances_sorted[k]
+for idx in range(min(1000, len(distances_sorted))):
+#for idx in range(10): #test input
+    dist, i, j = distances_sorted[idx]
     boxi = box[i]
     boxj = box[j]
     if boxi != boxj:
         for k in box:
-            if box[k] != boxj:
+            if box[k] == boxj:
                 box[k] = boxi
-            g = box[k]
-            if g in counts:
-                counts[g] += 1
-            else:
-                counts[g] = 1
 
+#Dict that counts how many boxes belong in each group
+counts = {}
+for node in box:
+    g = box[node]
+    counts[g] = counts.get(g, 0) + 1
 
 sizes = list(counts.values())
-sizes_sorted = sorted(sizes, key=lambda x: x[0])
+sizes_sorted = sorted(sizes, reverse = True)
 top_3_sizes = sizes_sorted[0]*sizes_sorted[1]*sizes_sorted[2]
 print(top_3_sizes)
 
