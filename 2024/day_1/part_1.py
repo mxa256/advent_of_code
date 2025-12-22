@@ -5,7 +5,7 @@
 #Pair up smallest number in left list with smallest number in right list, and so on
 #Find how far apart the two numbers are, add up all the distances
 
-with open('input_part_1', 'r') as file:
+with open('input', 'r') as file:
     input = list(file)
 
 input = [line.strip() for line in input]
