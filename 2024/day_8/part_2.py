@@ -27,13 +27,17 @@ for row in range(rows):
 for key, value in antennas.items():
     poss_combo = itertools.combinations(value, 2)
     for i, j in poss_combo:
+        antinode_locations.add(i)
+        antinode_locations.add(j)
         row_diff, col_diff = tuple(x - y for x, y in zip(i, j))
         anti_node_1 = (i[0] + row_diff, i[1] + col_diff)
         anti_node_2 = (j[0] - row_diff, j[1] - col_diff)
-        if anti_node_1[0] < rows and anti_node_1[0] >= 0 and anti_node_1[1] < cols and anti_node_1[1] >= 0:
+        while anti_node_1[0] < rows and anti_node_1[0] >= 0 and anti_node_1[1] < cols and anti_node_1[1] >= 0:
             antinode_locations.add(anti_node_1)
-        if anti_node_2[0] < rows and anti_node_2[0] >= 0 and anti_node_2[1] < cols and anti_node_2[1] >= 0:
+            anti_node_1 = (anti_node_1[0] + row_diff, anti_node_1[1] + col_diff)
+        while anti_node_2[0] < rows and anti_node_2[0] >= 0 and anti_node_2[1] < cols and anti_node_2[1] >= 0:
             antinode_locations.add(anti_node_2)
+            anti_node_2 = (anti_node_2[0] - row_diff, anti_node_2[1] - col_diff)
 
 
 print(len(antinode_locations))
